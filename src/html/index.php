@@ -33,8 +33,16 @@ if (array_key_exists($code, $codes)) {
 // Generate the barcode and output it as a PNG
 $img = $generator->getBarcode($data, $type, $width, $height);
 
+if (isset($_GET['base64'])) {
+  $base64 = base64_encode($img);
+  header('Content-Type: text/plain');
+  echo $base64;
+  die();
+}
+
 header('Content-Type: image/png');
 echo $img;
+
 die();
 
 function getUsage() {
